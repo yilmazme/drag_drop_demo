@@ -2,13 +2,12 @@ import { useState } from "react";
 import Users from "../data/Data"
 import { DragDropContext,Droppable,Draggable} from 'react-beautiful-dnd';
 
-import "./List.css"
 
 
 export default function List(){
 
     const [characters, setCharacters] = useState(Users);
-    const [userState, setUserState] = useState("");
+    const [userState, setUserState] = useState("User's info will be displayed here when you drag one.");
     const [dragState, setDragState] = useState(false);
 
 
@@ -19,21 +18,21 @@ export default function List(){
         users.splice(result.destination.index, 0, reorderedItem);
 
         setCharacters(users);
-        setUserState("");
-        setDragState(false);
-        console.log(result);
+        console.log(users)
+        setDragState(false);       
+        setUserState("User's info will be displayed here when you drag one.");
     }
 
     function handleOnDragStart(result){
         Users.filter(user=>user.id === result.draggableId).map(elem=>setUserState(JSON.stringify(elem)));
         setDragState(true);
-        console.log(result.draggableId)
+        console.log(characters)
     }
 
     return(
         <div className="grid grid-cols-3 gap-4 p-4 h-full" >
-            <div className={ dragState===true?  "bg-gray-300 col-span-1 p-4 h-full border-2 border-gray-100" :
-              "bg-gray-400 col-span-1 p-4 h-full  border-2 border-gray-100"}>
+            <div className={ dragState===true?  "bg-gray-300 col-span-1 p-4 h-full border-2 border-gray-100 rounded" :
+              "bg-gray-200 col-span-1 p-4 h-full  border-2 border-gray-100 rounded"}>
             <DragDropContext onDragEnd={handleOnDragEnd} onDragStart={handleOnDragStart}>
                 <Droppable droppableId="characters">
 
@@ -47,8 +46,9 @@ export default function List(){
                                             <li ref={provided.innerRef}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
-                                                className="h-12 text-center bg-blue-800 text-white m-2 align-middle pt-2 "
+                                                className="h-12  bg-blue-800 text-white m-2 align-middle pt-2 rounded flex"
                                             >
+                                                <span className="w-4/12"></span>
                                               <p className="align-middle">{name}</p>  
                                             </li>
                                         )}
@@ -63,7 +63,11 @@ export default function List(){
 
             </DragDropContext>
             </div>
-           <div className="col-span-2 text-left border-2 border-gray-100 p-5 h-full text-lg">{userState===""? "User's info will be displayed here when you drag one.":userState}</div>
+           <div className="col-span-2 text-left border-2 border-gray-100 p-5 h-full text-lg relative">{userState}
+           <p className="absolute bottom-0 left-1 text-xs ">
+               <b>NOT: </b> Sürüklenen kartın mı, kartların o anki sıralamasının mı JSON hali isteniyor bilemedim.<br/>
+            2.defa mail atmak istemedim. Kartların o anki sıralaması console'da görülebilir, ekrana yansıtmadım.</p>
+           </div>
         </div>
 
     )
