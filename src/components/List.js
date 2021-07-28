@@ -65,8 +65,8 @@ export default function List(){
             </div>
            <div className="col-span-2 text-left border-2 border-gray-100 p-5 h-full text-lg relative">{userState}
            <p className="absolute bottom-0 left-1 text-xs ">
-               <b>NOT: </b> Sürüklenen kartın mı, kartların o anki sıralamasının mı JSON hali isteniyor bilemedim.<br/>
-            2.defa mail atmak istemedim. Kartların o anki sıralaması console'da görülebilir, ekrana yansıtmadım.</p>
+                 <b>NOTE: </b> Basic one dimensional drag drop with user's info displayed.
+            </p>
            </div>
         </div>
 
